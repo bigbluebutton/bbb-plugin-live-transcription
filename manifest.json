@@ -1,7 +1,7 @@
 {
   "requiredSdkVersion": "~0.1.9",
   "name": "LiveTranscriptionPlugin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "javascriptEntrypointUrl": "LiveTranscriptionPlugin.js",
   "localesBaseUrl": "locales"
 }
