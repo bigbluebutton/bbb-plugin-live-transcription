@@ -17,7 +17,7 @@ Please be aware that we have a separate branch of this plugin for each version o
 | Repository Branch | Plugin-SDK Version | BigBlueButton Core Version |
 |------------------|--------------------|----------------------------|
 | v0.0.x           | v0.0.x             | v3.0.x                     |
-| v0.1.x           | v1.0.0-beta.x      | v3.1.x                     |
+| v0.1.x           | v1.0.0-beta.x      | v4.0.x                     |
 
 For more information about the plugin API features, see the documentation (`readme` files) within the specific branch you are interested in. We separate the branches because, going forward, `v0.1.x` is becoming more and more different from `v0.0.x`.
 
