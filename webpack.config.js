@@ -5,8 +5,8 @@ const path = require('path');
 module.exports = {
   entry: './src/index.tsx',
   output: {
-    filename: 'LiveTranscriptionPlugin.js',
-    library: 'LiveTranscriptionPlugin',
+    filename: 'BbbPluginLiveTranscription.js',
+    library: 'BbbPluginLiveTranscription',
     libraryTarget: 'umd',
     publicPath: '/',
     globalObject: 'this',

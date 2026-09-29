@@ -1,7 +1,7 @@
 {
   "requiredSdkVersion": "~0.0.94",
-  "name": "LiveTranscriptionPlugin",
+  "name": "BbbPluginLiveTranscription",
   "version": "0.0.3",
-  "javascriptEntrypointUrl": "LiveTranscriptionPlugin.js",
+  "javascriptEntrypointUrl": "BbbPluginLiveTranscription.js",
   "localesBaseUrl": "locales"
 }
