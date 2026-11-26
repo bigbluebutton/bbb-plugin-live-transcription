@@ -8,3 +8,4 @@ debian/**/copyright
 debian/**/changelog.gz
 debian/**/md5sums
 debian/**/var/www/*
+dist-external

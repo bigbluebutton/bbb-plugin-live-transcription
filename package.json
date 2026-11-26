@@ -17,6 +17,7 @@
   },
   "scripts": {
     "build-bundle": "webpack --mode production",
+    "build-bundle:external": "webpack --mode production --config webpack.external.js",
     "start": "webpack serve --mode development",
     "build:watch": "rm -rf dist && tsc -w --module CommonJS",
     "lint": "eslint ./src/*",
