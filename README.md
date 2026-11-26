@@ -72,6 +72,19 @@ pluginManifests=[{"url":"<your-domain>/path/to/manifest.json"}]
 
 Or additionally, you can add this same configuration in the `.properties` file from `bbb-web` in `/etc/bigbluebutton/bbb-web.properties`
 
+### Alternative build: shared React and SDK (externals)
+
+```bash
+npm run build-bundle:external
+```
+
+Generates `dist-external/`. `LiveTranscriptionPlugin.js` does not contain React, ReactDOM, the plugin SDK, react-intl or styled-components. When it loads, it checks whether the BigBlueButton client exposes all of them on `window` (`React`, `ReactDOM`, `ReactDOMClient`, `BbbPluginSdk`, `ReactIntl`, `StyledComponents`), with the same major versions the plugin was built with for React and styled-components (react-intl does not export its version):
+
+- if it does, the plugin uses the client's copies, and loading it takes a single request;
+- if it does not (an older client, or a different React major), the plugin first loads its own copies from `LiveTranscriptionPlugin.vendor.js`, next to it, and then runs.
+
+The decision is made for all these libraries together: the plugin never mixes the client's copies with its own. Host the whole `dist-external/` folder, including the vendor file.
+
 ## Development mode
 
 As for development mode (running this plugin from source), please refer back to [https://github.com/bigbluebutton/bigbluebutton-html-plugin-sdk](https://github.com/bigbluebutton/bigbluebutton-html-plugin-sdk) section `Running the Plugin from Source`

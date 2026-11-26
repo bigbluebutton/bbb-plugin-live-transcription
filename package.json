@@ -12,11 +12,12 @@
     "path": "^0.12.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-intl": "^6.6.8",
+    "react-intl": "6.6.8",
     "styled-components": "^5.3.3"
   },
   "scripts": {
     "build-bundle": "webpack --mode production",
+    "build-bundle:external": "webpack --mode production --config webpack.external.js",
     "start": "webpack serve --mode development",
     "build:watch": "rm -rf dist && tsc -w --module CommonJS",
     "lint": "eslint ./src/*",
