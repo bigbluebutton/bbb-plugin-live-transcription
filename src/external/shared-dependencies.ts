@@ -1,33 +1,31 @@
-// Decides where React, ReactDOM and the plugin SDK come from, as one group:
-// either all from the BigBlueButton client (globals it exposes) or all from
-// this plugin's own vendor file. Mixing them (for example the client's React
-// with this plugin's ReactDOM or SDK) breaks hooks, so a partial set from the
-// client is never used.
+// Decides where the shared libraries (React, ReactDOM, the plugin SDK and the
+// UI libraries listed in webpack.external.js) come from, as one group: either
+// all from the BigBlueButton client (globals it exposes) or all from this
+// plugin's own vendor file. They depend on each other (the UI libraries use
+// the React they import), so a partial set from the client is never used.
 
 // Replaced at build time (webpack.external.js).
-declare const SHARED_REACT_MAJOR: string;
+// Globals the client must expose.
+declare const SHARED_GLOBALS: string[];
+// Expected major version, for the libraries that export their version.
+declare const SHARED_MAJORS: Record<string, string>;
 declare const VENDOR_FILE: string;
 declare const VENDOR_GLOBAL: string;
 
-export interface SharedDependencies {
-  React: unknown;
-  ReactDOM: unknown;
-  ReactDOMClient: unknown;
-  BbbPluginSdk: unknown;
-}
+export type SharedDependencies = Record<string, unknown>;
 
-type Globals = Partial<SharedDependencies> & { React?: { version?: string } };
+type Globals = Record<string, { version?: string } | undefined>;
 
 const fromClient = (): SharedDependencies | undefined => {
-  const {
-    React, ReactDOM, ReactDOMClient, BbbPluginSdk,
-  } = window as unknown as Globals;
-  const reactMajor = React?.version?.split('.')[0];
-  const complete = React && ReactDOM && ReactDOMClient && BbbPluginSdk;
-  if (!complete || reactMajor !== SHARED_REACT_MAJOR) return undefined;
-  return {
-    React, ReactDOM, ReactDOMClient, BbbPluginSdk,
-  };
+  const globals = window as unknown as Globals;
+  const complete = SHARED_GLOBALS.every((name) => globals[name]);
+  const sameMajors = Object.keys(SHARED_MAJORS).every(
+    (name) => globals[name]?.version?.split('.')[0] === SHARED_MAJORS[name],
+  );
+  if (!complete || !sameMajors) return undefined;
+  return SHARED_GLOBALS.reduce((dependencies, name) => (
+    { ...dependencies, [name]: globals[name] }
+  ), {} as SharedDependencies);
 };
 
 const fromVendorFile = (pluginScriptUrl: string): Promise<SharedDependencies> => (
